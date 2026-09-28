@@ -1,75 +1,33 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scalera — Neural Tunnel 3D</title>
-<style>
-  /* ============ 1 — CSS : dans ton <head> ============ */
-  #neural-bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ---- Minimum pour tester le fichier seul (scroll factice) ---- */
-  body { margin: 0; background: #030812; min-height: 400vh; }
-</style>
-</head>
-<body>
-
-<!-- ============ 2 — CANVAS : juste avant </body> ============ -->
-<canvas id="neural-bg"></canvas>
-
-<!-- Aucun contenu : le scroll de test vient du min-height: 400vh sur le body -->
-
-<!-- ============ 3 — SCRIPT : juste après le <canvas> ============ -->
-<script>
+/* ════════════ Fond : Neural Tunnel 3D ════════════ */
 (function NeuralTunnel3D() {
   'use strict';
 
-  /* =====================================================
-     SCALERA — NEURAL TUNNEL 3D
-     Vrai moteur 3D : projection perspective, caméra qui
-     avance sur l'axe Z pilotée par le scroll, tunnel
-     infini (recyclage modulaire des nœuds), brouillard
-     de profondeur, warp à la vélocité, parallaxe souris.
-     ===================================================== */
-
   const CFG = {
-    /* --- Monde 3D --- */
-    NODE_COUNT  : 240,        // nb de neurones dans le tunnel
-    DEPTH       : 6000,       // longueur du tunnel (unités monde)
-    SPAN_X      : 900,        // demi-largeur du tunnel
-    SPAN_Y      : 560,        // demi-hauteur du tunnel
-    CORE_HOLE   : 0.18,       // % du rayon central laissé +/- vide (couloir de vol)
-    FOCAL       : 460,        // focale de base (plus petit = grand angle)
-    NEAR        : 30,         // plan de clipping proche
-    FAR         : 2600,       // distance de rendu max (brouillard total)
-    FOG_START   : 0.45,       // début du fondu brouillard (fraction de FAR)
+    NODE_COUNT  : 240,
+    DEPTH       : 6000,
+    SPAN_X      : 900,
+    SPAN_Y      : 560,
+    CORE_HOLE   : 0.18,
+    FOCAL       : 460,
+    NEAR        : 30,
+    FAR         : 2600,
+    FOG_START   : 0.45,
 
-    /* --- Caméra / scroll --- */
-    LOOPS       : 2.2,        // nb de traversées du tunnel sur toute la page
-    SCROLL_EASE : 0.06,       // inertie du scroll (plus petit = plus fluide)
-    IDLE_SPEED  : 26,         // avance auto (unités/s) même sans scroll
-    WARP_FOV    : 0.16,       // élargissement du FOV à pleine vitesse
-    WARP_VEL    : 1400,       // vélocité (u/s) correspondant au warp max
-    STREAK_K    : 0.045,      // longueur des traînées de vitesse des nœuds
+    LOOPS       : 2.2,
+    SCROLL_EASE : 0.06,
+    IDLE_SPEED  : 26,
+    WARP_FOV    : 0.16,
+    WARP_VEL    : 1400,
+    STREAK_K    : 0.045,
 
-    /* --- Souris --- */
-    MOUSE_PAN   : 150,        // déplacement latéral caméra (unités monde)
+    MOUSE_PAN   : 150,
     MOUSE_EASE  : 0.05,
 
-    /* --- Réseau --- */
     MAX_CONN    : 4,
     HUB_RATE    : 0.10,
     HUB_CONN    : 7,
-    CONN_REACH  : 620,        // distance 3D max d'une connexion
+    CONN_REACH  : 620,
 
-    /* --- Impulsions --- */
     PULSE_RATE  : 0.07,
     PULSE_MAX   : 30,
     PULSE_SPD_LO: 0.004,
@@ -77,14 +35,13 @@
     TRAIL_LEN   : 16,
     CASCADE_P   : 0.40,
 
-    /* --- Apparence --- */
-    NODE_R_MIN  : 26,         // rayon monde (projeté ensuite)
+    NODE_R_MIN  : 26,
     NODE_R_MAX  : 64,
-    R_CLAMP_PX  : 9,          // rayon max à l'écran (évite les boules géantes)
+    R_CLAMP_PX  : 9,
     FLOAT_AMP   : 22,
     FLOAT_SPD   : 0.30,
-    LINE_A      : 0.30,
-    LINE_A_HOT  : 0.85,
+    LINE_A      : 0.18,
+    LINE_A_HOT  : 0.60,
     COLORS : [
       { r:   0, g: 205, b: 255, w: 68 },
       { r:  50, g: 110, b: 255, w: 22 },
@@ -93,7 +50,8 @@
   };
 
   const canvas = document.getElementById('neural-bg');
-  const ctx    = canvas.getContext('2d');
+  const ctx    = canvas && canvas.getContext('2d');
+  if (!ctx) return;
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let W, H, DPR, CX, CY;
@@ -102,7 +60,6 @@
   let camX = 0, camY = 0, tMX = 0, tMY = 0;
   let focal = CFG.FOCAL;
 
-  /* ---------- Outils ---------- */
   const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
   const lerp  = (a, b, t) => a + (b - a) * t;
   const wrap  = z => ((z % CFG.DEPTH) + CFG.DEPTH) % CFG.DEPTH;
@@ -114,12 +71,9 @@
     return CFG.COLORS[0];
   }
 
-  /* ---------- Construction du monde ---------- */
   function buildNodes() {
     nodes = [];
     for (let i = 0; i < CFG.NODE_COUNT; i++) {
-      // Distribution radiale biaisée vers l'extérieur : on vole DANS un tunnel,
-      // le centre reste relativement dégagé pour laisser passer la caméra.
       const ang  = Math.random() * Math.PI * 2;
       const rad  = CFG.CORE_HOLE + Math.pow(Math.random(), 0.62) * (1 - CFG.CORE_HOLE);
       const x    = Math.cos(ang) * rad * CFG.SPAN_X * (0.7 + Math.random() * 0.6);
@@ -129,11 +83,10 @@
         id: i, x, y, z,
         isHub: Math.random() < CFG.HUB_RATE,
         r: CFG.NODE_R_MIN + Math.random() * (CFG.NODE_R_MAX - CFG.NODE_R_MIN),
-        conns: [],            // { id, dx, dy, dz } — offsets 3D figés
+        conns: [],
         act: 0,
         phX: Math.random() * Math.PI * 2,
         phY: Math.random() * Math.PI * 2,
-        // mémo de la projection précédente (traînées de vitesse)
         px: 0, py: 0, pr: 0, onScreen: false,
       });
     }
@@ -145,9 +98,8 @@
       const cands = [];
       for (const o of nodes) {
         if (o.id === n.id) continue;
-        // dz "enroulé" : le plus court chemin sur l'axe du tunnel (gère la couture)
         let dz = wrap(o.z - n.z + CFG.DEPTH / 2) - CFG.DEPTH / 2;
-        if (dz <= 0) continue;                       // flux orienté vers l'avant
+        if (dz <= 0) continue;
         const dx = o.x - n.x, dy = o.y - n.y;
         const d  = Math.hypot(dx, dy, dz);
         if (d < CFG.CONN_REACH) cands.push({ id: o.id, dx, dy, dz, d });
@@ -157,12 +109,9 @@
     }
   }
 
-  /* ---------- Projection ---------- */
-  // Position monde animée (flottement organique)
   function wx(n) { return n.x + Math.sin(time * CFG.FLOAT_SPD + n.phX) * CFG.FLOAT_AMP; }
   function wy(n) { return n.y + Math.cos(time * CFG.FLOAT_SPD * 0.7 + n.phY) * CFG.FLOAT_AMP; }
 
-  // Projette un point monde (x, y, relZ) -> écran. relZ = distance devant la caméra.
   function project(x, y, relZ, out) {
     const s = focal / relZ;
     out.x = CX + (x - camX) * s;
@@ -171,20 +120,23 @@
     return out;
   }
 
-  // Distance d'un nœud devant la caméra, en tenant compte du tunnel cyclique
-  function relZ(n) {
-    return wrap(n.z - camZ);
-  }
+  function relZ(n) { return wrap(n.z - camZ); }
 
   function fogAlpha(rel) {
     if (rel <= CFG.NEAR || rel >= CFG.FAR) return 0;
-    const nearFade = clamp((rel - CFG.NEAR) / 140, 0, 1);          // fondu d'entrée (évite le "pop")
+    const nearFade = clamp((rel - CFG.NEAR) / 140, 0, 1);
     const start = CFG.FAR * CFG.FOG_START;
     const farFade = rel < start ? 1 : 1 - (rel - start) / (CFG.FAR - start);
     return nearFade * farFade;
   }
 
-  /* ---------- Impulsions ---------- */
+  function logoExclusion(sx, sy) {
+    const dx = sx - CX, dy = sy - (CY - H * 0.04);
+    const rx = W * 0.18, ry = H * 0.20;
+    const d = Math.sqrt((dx / rx) ** 2 + (dy / ry) ** 2);
+    return clamp((d - 0.38) / 0.62, 0, 1);
+  }
+
   function spawnPulse(srcId, col, speedMult = 1) {
     if (pulses.length >= CFG.PULSE_MAX) return;
     const src = nodes[srcId];
@@ -206,32 +158,21 @@
     spawnPulse(pool[Math.floor(Math.random() * pool.length)].id);
   }
 
-  /* ---------- Mise à jour ---------- */
   function update(dt) {
     time += dt;
-
-    // -- Caméra : scroll => profondeur --
     const scrollMax = Math.max(1, document.documentElement.scrollHeight - H);
     const progress  = window.scrollY / scrollMax;
-    idleZ += CFG.IDLE_SPEED * dt;                                   // dérive permanente
+    idleZ += CFG.IDLE_SPEED * dt;
     camZTarget = progress * CFG.DEPTH * CFG.LOOPS + idleZ;
-
     const prev = camZ;
     camZ += (camZTarget - camZ) * CFG.SCROLL_EASE;
     camVel = lerp(camVel, (camZ - prev) / Math.max(dt, 1e-4), 0.12);
-
-    // -- Warp : le FOV s'élargit avec la vitesse --
     const warp = clamp(Math.abs(camVel) / CFG.WARP_VEL, 0, 1);
     focal = CFG.FOCAL * (1 - warp * CFG.WARP_FOV);
-
-    // -- Souris : translation latérale douce de la caméra --
     camX += (tMX * CFG.MOUSE_PAN - camX) * CFG.MOUSE_EASE;
     camY += (tMY * CFG.MOUSE_PAN - camY) * CFG.MOUSE_EASE;
-
     for (const n of nodes) n.act *= 0.955;
     if (!REDUCED) spawnRandom();
-
-    // -- Impulsions : interpolation 3D, projection, cascade --
     const P = { x: 0, y: 0, s: 0 };
     pulses = pulses.filter(p => {
       p.t += p.spd;
@@ -242,7 +183,7 @@
         p.trail.push({ x: P.x, y: P.y, s: P.s });
         if (p.trail.length > CFG.TRAIL_LEN) p.trail.shift();
       } else {
-        p.trail.length = 0;     // hors champ : on coupe la traînée
+        p.trail.length = 0;
       }
       if (p.t >= 1) {
         const t = nodes[p.c.id];
@@ -255,21 +196,16 @@
     });
   }
 
-  /* ---------- Rendu ---------- */
   function draw() {
-    // Fond + atmosphère
-    ctx.fillStyle = '#030812';
+    ctx.fillStyle = 'rgba(4,7,15,0.92)';
     ctx.fillRect(0, 0, W, H);
     const atm = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * 0.75);
-    atm.addColorStop(0, 'rgba(0,34,70,0.30)');
+    atm.addColorStop(0, 'rgba(0,34,70,0.20)');
     atm.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = atm;
     ctx.fillRect(0, 0, W, H);
-
     const warp = clamp(Math.abs(camVel) / CFG.WARP_VEL, 0, 1);
     const A = { x: 0, y: 0, s: 0 }, B = { x: 0, y: 0, s: 0 };
-
-    // -- Passe 1 : projeter tous les nœuds (du fond vers l'avant) --
     const order = [];
     for (const n of nodes) {
       const rel = relZ(n);
@@ -283,9 +219,7 @@
       n.onScreen = true;
       order.push(n);
     }
-    order.sort((a, b) => b.rel - a.rel);   // peinture : loin d'abord
-
-    // -- Passe 2 : connexions --
+    order.sort((a, b) => b.rel - a.rel);
     for (const n of order) {
       for (const c of n.conns) {
         const relB = n.rel + c.dz;
@@ -295,7 +229,9 @@
         project(wx(n) + c.dx, wy(n) + c.dy, relB, B);
         const fog = Math.min(n.fog, fogB);
         const hot = Math.max(n.act, o.act);
-        const alpha = (CFG.LINE_A + hot * (CFG.LINE_A_HOT - CFG.LINE_A)) * fog;
+        const excl = logoExclusion((n.sx + B.x) * 0.5, (n.sy + B.y) * 0.5);
+        const alpha = (CFG.LINE_A + hot * (CFG.LINE_A_HOT - CFG.LINE_A)) * fog * excl;
+        if (alpha < 0.004) continue;
         ctx.strokeStyle = `rgba(0,182,255,${alpha.toFixed(3)})`;
         ctx.lineWidth = clamp(0.5 + n.scale * 0.9, 0.4, 2.2);
         ctx.beginPath();
@@ -304,8 +240,6 @@
         ctx.stroke();
       }
     }
-
-    // -- Passe 3 : traînées d'impulsions --
     for (const p of pulses) {
       if (p.trail.length < 2) continue;
       const { r, g, b } = p.col;
@@ -319,8 +253,6 @@
         ctx.stroke();
       }
     }
-
-    // -- Passe 4 : têtes d'impulsions --
     for (const p of pulses) {
       if (!p.trail.length) continue;
       const h = p.trail[p.trail.length - 1];
@@ -334,13 +266,11 @@
       ctx.beginPath(); ctx.arc(h.x, h.y, rad * 0.4, 0, Math.PI * 2); ctx.fill();
     }
     ctx.shadowBlur = 0;
-
-    // -- Passe 5 : nœuds (avec traînées de vitesse au warp) --
     for (const n of order) {
       const R = clamp(n.r * n.scale, 0.6, CFG.R_CLAMP_PX) * (1 + n.act * 0.55);
-      const a = n.fog;
-
-      // Traînée de vitesse : étirement radial proportionnel à la vélocité caméra
+      const excl = logoExclusion(n.sx, n.sy);
+      const a = n.fog * excl;
+      if (a < 0.008) { n.px = n.sx; n.py = n.sy; n.pr = R; continue; }
       if (warp > 0.05 && n.pr > 0) {
         const dx = n.sx - n.px, dy = n.sy - n.py;
         if (dx * dx + dy * dy > 1.5) {
@@ -354,8 +284,6 @@
         }
       }
       n.px = n.sx; n.py = n.sy; n.pr = R;
-
-      // Halos + cœur
       ctx.fillStyle = `rgba(0,145,255,${((0.04 + n.act * 0.09) * a).toFixed(3)})`;
       ctx.beginPath(); ctx.arc(n.sx, n.sy, R * 4.2, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = `rgba(0,188,255,${((0.07 + n.act * 0.18) * a).toFixed(3)})`;
@@ -367,26 +295,37 @@
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(n.sx, n.sy, R, 0, Math.PI * 2); ctx.fill();
     }
-
-    // Vignette légère pour le contraste du contenu
     const vig = ctx.createRadialGradient(CX, CY, Math.min(W, H) * 0.42, CX, CY, Math.max(W, H) * 0.85);
-    vig.addColorStop(0, 'rgba(3,8,18,0)');
-    vig.addColorStop(1, 'rgba(3,8,18,0.55)');
+    vig.addColorStop(0, 'rgba(4,7,15,0)');
+    vig.addColorStop(1, 'rgba(4,7,15,0.55)');
     ctx.fillStyle = vig;
     ctx.fillRect(0, 0, W, H);
   }
 
-  /* ---------- Boucle ---------- */
-  let lastTs = 0;
-  function loop(ts = 0) {
+  // Boucle active uniquement si l'onglet est visible et si le mouvement n'est pas réduit
+  let lastTs = 0, rafId = 0;
+  function loop(ts) {
     const dt = Math.min((ts - lastTs) / 1000, 0.05);
     lastTs = ts;
-    update(REDUCED ? dt * 0.25 : dt);
+    update(dt);
     draw();
-    requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
+  }
+  function start() {
+    if (REDUCED || rafId || document.hidden) return;
+    lastTs = performance.now();
+    rafId = requestAnimationFrame(loop);
+  }
+  function stop() {
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+  // prefers-reduced-motion : une seule image fixe, redessinée au redimensionnement
+  function staticFrame() {
+    update(0);
+    draw();
   }
 
-  /* ---------- Setup / événements ---------- */
   function setup() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     W = window.innerWidth; H = window.innerHeight;
@@ -396,7 +335,8 @@
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
-  window.addEventListener('resize', setup, { passive: true });
+  window.addEventListener('resize', () => { setup(); if (REDUCED) staticFrame(); }, { passive: true });
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
   window.addEventListener('mousemove', e => {
     tMX = (e.clientX / W - 0.5) * 2;
     tMY = (e.clientY / H - 0.5) * 2;
@@ -409,8 +349,5 @@
   setup();
   buildNodes();
   buildConnections();
-  requestAnimationFrame(loop);
+  if (REDUCED) staticFrame(); else start();
 })();
-</script>
-</body>
-</html>

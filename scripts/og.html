@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Image de partage</title>
+<style>
+@font-face{font-family:'Michroma';src:url('../assets/fonts/michroma-latin.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:300 700;src:url('../assets/fonts/space-grotesk-latin.woff2') format('woff2')}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  width:1200px;height:630px;overflow:hidden;
+  display:flex;align-items:center;gap:64px;padding:0 90px;
+  font-family:'Space Grotesk',sans-serif;color:#e9f0ff;
+  background:
+    radial-gradient(ellipse 60% 70% at 22% 50%,rgba(10,71,224,.35),transparent 70%),
+    linear-gradient(rgba(79,124,224,.06) 1px,transparent 1px) 0 0/60px 60px,
+    linear-gradient(90deg,rgba(79,124,224,.06) 1px,transparent 1px) 0 0/60px 60px,
+    #04070f;
+}
+img{width:300px;filter:drop-shadow(0 0 40px rgba(47,123,255,.55))}
+h1{font-family:'Michroma',sans-serif;font-weight:400;font-size:52px;letter-spacing:.2em;text-transform:uppercase;line-height:1.2}
+h1 span{color:#62a8ff}
+p{margin-top:26px;font-size:26px;color:#c9d6f5}
+.axes{margin-top:18px;font-size:18px;letter-spacing:.34em;text-transform:uppercase;color:#8fa6d4}
+</style>
+</head>
+<body>
+  <img src="../assets/img/scalera-emblem.png" alt="">
+  <div>
+    <h1>Scalera<br><span>Systèmes</span></h1>
+    <p>Développeur web &amp; mobile — automatisation et IA</p>
+    <p class="axes">Développer · Optimiser · Automatiser</p>
+  </div>
+</body>
+</html>
