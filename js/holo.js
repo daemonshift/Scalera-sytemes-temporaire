@@ -5,6 +5,7 @@
   const c = document.getElementById('holo');
   if (!c) return;
   const ctx = c.getContext('2d');
+  if (!ctx) return;
   let W,H,dpr;
   function tailleCanvas(){
     const r = c.getBoundingClientRect();
@@ -34,7 +35,7 @@
     try { data = ectx.getImageData(0,0,LARG,HAUT).data; }
     catch (err) { console.warn('[holo] lecture des pixels impossible (page ouverte en file:// ?)', err); return; }
 
-    const PAS = 2;
+    const PAS = W < 520 ? 3 : 2; // moins de particules sur petit écran : ~2× plus fluide sur mobile
     for(let y=0; y<HAUT; y+=PAS){
       for(let x=0; x<LARG; x+=PAS){
         const i = (y*LARG+x)*4;
@@ -56,17 +57,31 @@
         });
       }
     }
-    boucle();
+    pret = true;
+    planifier();
   };
   img.src = EMBLEME;
+
+  // Rendu uniquement quand le logo est à l'écran et l'onglet visible
+  let rafH = 0, pret = false, visible = true;
+  function planifier(){
+    if (!rafH && pret && visible && !document.hidden) rafH = requestAnimationFrame(boucle);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; planifier(); }).observe(c);
+  }
+  document.addEventListener('visibilitychange', planifier);
 
   // Interaction : rotation par glisser + répulsion souris + explosion
   let rx=-.12, ry=.35, vrx=0, vry=REDUIT?0:.0035;
   let drag=false, px=0, py=0, repos=0, eclate=0;
   const curseur = {x:-1e4, y:-1e4};
 
+  // Double-tap tactile (dblclick est peu fiable sur mobile)
+  let tapT=0, tapX=0, tapY=0, downX=0, downY=0;
   c.addEventListener('pointerdown', e=>{
     drag=true; px=e.clientX; py=e.clientY; vrx=vry=0;
+    downX=e.clientX; downY=e.clientY;
     c.setPointerCapture(e.pointerId);
   });
   c.addEventListener('pointermove', e=>{
@@ -80,10 +95,19 @@
     px=e.clientX; py=e.clientY;
   });
   const lache=()=>{drag=false; repos=0;};
-  c.addEventListener('pointerup', lache);
+  c.addEventListener('pointerup', e=>{
+    lache();
+    if (e.pointerType !== 'touch') return;
+    if (Math.hypot(e.clientX-downX, e.clientY-downY) > 12) { tapT = 0; return; } // c'était un glissé
+    const now = performance.now();
+    if (now - tapT < 320 && Math.hypot(e.clientX-tapX, e.clientY-tapY) < 40) { eclater(); tapT = 0; }
+    else { tapT = now; tapX = e.clientX; tapY = e.clientY; }
+  });
   c.addEventListener('pointercancel', lache);
   c.addEventListener('pointerleave', ()=>{curseur.x=curseur.y=-1e4;});
-  c.addEventListener('dblclick', ()=>{
+  c.addEventListener('dblclick', eclater);
+  function eclater(){
+    if (eclate) return; // évite un double déclenchement tap + dblclick
     eclate = 1;
     for(const p of parts){
       p.vx += (Math.random()-.5)*46;
@@ -91,10 +115,11 @@
       p.vz += (Math.random()-.5)*46;
     }
     setTimeout(()=>{ eclate = 0; }, 900);
-  });
+  }
 
   let t=0;
   function boucle(){
+    rafH = 0;
     t += .016;
     ctx.clearRect(0,0,W,H);
 
@@ -155,6 +180,6 @@
       ctx.fillRect(q.ex-taille/2, q.ey-taille/2, taille, taille);
     }
     ctx.shadowBlur=0;
-    requestAnimationFrame(boucle);
+    planifier();
   }
 })();

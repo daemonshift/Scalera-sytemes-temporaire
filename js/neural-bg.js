@@ -50,7 +50,8 @@
   };
 
   const canvas = document.getElementById('neural-bg');
-  const ctx    = canvas.getContext('2d');
+  const ctx    = canvas && canvas.getContext('2d');
+  if (!ctx) return;
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let W, H, DPR, CX, CY;
@@ -301,13 +302,28 @@
     ctx.fillRect(0, 0, W, H);
   }
 
-  let lastTs = 0;
-  function loop(ts = 0) {
+  // Boucle active uniquement si l'onglet est visible et si le mouvement n'est pas réduit
+  let lastTs = 0, rafId = 0;
+  function loop(ts) {
     const dt = Math.min((ts - lastTs) / 1000, 0.05);
     lastTs = ts;
-    update(REDUCED ? dt * 0.25 : dt);
+    update(dt);
     draw();
-    requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
+  }
+  function start() {
+    if (REDUCED || rafId || document.hidden) return;
+    lastTs = performance.now();
+    rafId = requestAnimationFrame(loop);
+  }
+  function stop() {
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+  // prefers-reduced-motion : une seule image fixe, redessinée au redimensionnement
+  function staticFrame() {
+    update(0);
+    draw();
   }
 
   function setup() {
@@ -319,7 +335,8 @@
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
-  window.addEventListener('resize', setup, { passive: true });
+  window.addEventListener('resize', () => { setup(); if (REDUCED) staticFrame(); }, { passive: true });
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
   window.addEventListener('mousemove', e => {
     tMX = (e.clientX / W - 0.5) * 2;
     tMY = (e.clientY / H - 0.5) * 2;
@@ -332,5 +349,5 @@
   setup();
   buildNodes();
   buildConnections();
-  requestAnimationFrame(loop);
+  if (REDUCED) staticFrame(); else start();
 })();

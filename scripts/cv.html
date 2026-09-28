@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CV — Développeur web &amp; mobile · Full Stack · Automatisation · Agents IA</title>
+<style>
+@font-face{font-family:'Michroma';src:url('../assets/fonts/michroma-latin.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:300 700;src:url('../assets/fonts/space-grotesk-latin.woff2') format('woff2')}
+@page{size:A4;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--encre:#101a33;--gris:#4a5670;--bleu:#1f5fe0;--pale:#eef3ff;--trait:#d6def0}
+html,body{width:210mm;height:297mm}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;font-size:9.4pt;line-height:1.5;color:var(--encre);
+  display:grid;grid-template-columns:66mm 1fr;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+aside{background:#0a1226;color:#dfe7fb;padding:14mm 8mm 12mm 10mm}
+main{padding:12mm 12mm 10mm 11mm}
+.logo{width:22mm;display:block;margin-bottom:7mm}
+aside h2,main h2{
+  font-family:'Michroma',sans-serif;font-weight:400;font-size:7.6pt;letter-spacing:.2em;text-transform:uppercase;
+}
+aside h2{color:#7fb0ff;margin:6.5mm 0 2.4mm}
+aside h2:first-of-type{margin-top:0}
+aside p,aside li{font-size:8.6pt;color:#c6d2ee}
+aside ul{list-style:none}
+aside li{margin-top:1.2mm}
+aside h3{font-size:8pt;font-weight:600;color:#fff;margin-top:3mm;letter-spacing:.04em}
+aside .lang b{color:#fff;font-weight:500}
+aside a{color:#c6d2ee;text-decoration:none}
+h1{
+  font-family:'Michroma',sans-serif;font-weight:400;font-size:14.5pt;letter-spacing:.06em;
+  text-transform:uppercase;line-height:1.25;
+}
+.accroche{margin-top:2mm;font-size:10.5pt;color:var(--bleu);font-weight:500;letter-spacing:.02em}
+main h2{color:var(--bleu);margin:5mm 0 2.2mm;padding-bottom:1.4mm;border-bottom:.3mm solid var(--trait)}
+main p{color:var(--gris)}
+.bloc{margin-top:2.2mm}
+.bloc h3{font-size:9.8pt;font-weight:600;color:var(--encre)}
+.bloc .meta{font-size:8.4pt;color:var(--bleu);font-weight:500;margin-top:.4mm}
+.bloc p{margin-top:.8mm}
+.cles{display:grid;gap:1.8mm}
+.formation{list-style:none;color:var(--gris)}
+.formation li{margin-top:1mm}
+.formation b{color:var(--encre);font-weight:600}
+.cles h3{font-size:9.4pt;font-weight:600}
+.puces{margin-top:1mm;padding-left:4mm;color:var(--gris)}
+.puces li{margin-top:.6mm}
+.note{margin-top:7mm;font-size:7.6pt;color:#8792ab}
+</style>
+</head>
+<body>
+<aside>
+  <img class="logo" src="../assets/img/scalera-emblem.png" alt="">
+
+  <h2>Contact</h2>
+  <ul>
+    <li><a href="mailto:daemonshift@gmail.com">daemonshift@gmail.com</a></li>
+    <li><a href="@@PORTFOLIO_URL@@">@@PORTFOLIO_LABEL@@</a></li>
+    <li><a href="https://www.linkedin.com/in/hugo-f-5842b1191">LinkedIn</a> · <a href="https://github.com/daemonshift">GitHub</a></li>
+    <li>Lot-et-Garonne</li>
+    <li>Permis A et B</li>
+  </ul>
+
+  <h2>Technologies</h2>
+  <h3>Web et mobile</h3>
+  <p>HTML · CSS · JavaScript · TypeScript · React · Next.js · Tailwind CSS · React Native · Expo</p>
+  <h3>Données et API</h3>
+  <p>Supabase · PostgreSQL · SQL · API REST</p>
+  <h3>Automatisation et IA</h3>
+  <p>Claude Code · Make · n8n · API OpenAI et Anthropic</p>
+  <h3>Outils</h3>
+  <p>Git · GitHub · VS Code · Docker · Vercel · Airtable · Notion · Excel</p>
+
+  <h2>Langues</h2>
+  <ul class="lang">
+    <li><b>Français</b> — natif</li>
+    <li><b>Espagnol</b> — intermédiaire professionnel</li>
+    <li><b>Anglais</b> — notions opérationnelles</li>
+  </ul>
+</aside>
+
+<main>
+  <h1>Développeur web &amp; mobile</h1>
+  <p class="accroche">Full Stack · Automatisation · Agents IA</p>
+
+  <h2>Profil</h2>
+  <p>Je conçois des applications web et mobiles, du besoin utilisateur au déploiement&nbsp;: interfaces, données, tests et développement assisté par IA. Mon expérience en bureau d'études et en qualité industrielle nourrit ma compréhension des processus métier et de leur automatisation.</p>
+
+  <h2>Compétences clés</h2>
+  <div class="cles">
+    <div><h3>Analyse des processus métier</h3><p>Cadrage des besoins, formalisation des processus et conception d'outils internes adaptés aux équipes.</p></div>
+    <div><h3>Développement Full Stack et applications mobiles</h3><p>Applications avec React, Next.js, React Native et Expo. API, données et authentification avec Supabase. Tests, contrôle des accès et déploiement.</p></div>
+    <div><h3>Automatisation et développement agentique</h3><p>Création de workflows et d'agents métier. Développement assisté par Claude Code&nbsp;; environnements conteneurisés avec Docker.</p></div>
+  </div>
+
+  <h2>Réalisations numériques</h2>
+  <p>2 sites web conçus, développés et publiés · 2 applications mobiles réalisées, dont une distribuée sur les stores.</p>
+  <ul class="puces">
+    <li><b>L'Escale de Larcher</b> — site vitrine multilingue avec parcours de réservation (lescaledelarcher.fr).</li>
+    <li><b>Cosydo</b> — application d'organisation familiale&nbsp;: React Native, Expo et Supabase, développée avec Claude Code.</li>
+    <li><b>Scalera Systèmes</b> — portfolio statique sans dépendance, rendu 3D en Canvas, sans cookie, déployé par Vercel.</li>
+  </ul>
+
+  <h2>Expérience professionnelle</h2>
+  <div class="bloc">
+    <h3>Bureau d'études, chiffrage, méthodes et qualité</h3>
+    <p class="meta">ACIS · Textile technique et défense | 2023 — aujourd'hui</p>
+    <p>Analyse des besoins clients, chiffrage et structuration des données. Optimisation des méthodes et interface production, qualité et fournisseurs.</p>
+  </div>
+  <div class="bloc">
+    <h3>Assistant qualité</h3>
+    <p class="meta">Conserves France · Agroalimentaire | 2021 — 2022</p>
+    <p>Contrôles, traçabilité, coordination des contrôleurs et gestion de laboratoires. Analyse des écarts et amélioration du suivi.</p>
+  </div>
+  <div class="bloc">
+    <h3>Parcours terrain</h3>
+    <p class="meta">2007 — 2021</p>
+    <p>Armée de Terre, sécurité, agriculture et international.</p>
+  </div>
+
+  <h2>Formation</h2>
+  <ul class="formation">
+    <li><b>Product Builder IA</b> — École Cube · en cours</li>
+    <li><b>CAP Tailleur de pierre</b> — Compagnons du Devoir</li>
+    <li><b>CQP Agent de sécurité</b></li>
+  </ul>
+</main>
+</body>
+</html>

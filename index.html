@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scalera Systèmes — Genèse</title>
-<meta name="description" content="Scalera Systèmes — Développer, optimiser, automatiser. Site en construction.">
+<title>Scalera Systèmes — Développeur web &amp; mobile, automatisation et IA</title>
+<meta name="description" content="Portfolio d'un développeur web et mobile full stack : React, Next.js, React Native, Supabase, automatisation Make/n8n et agents IA, avec une expérience en bureau d'études et qualité industrielle.">
+<meta name="theme-color" content="#04070f">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Scalera Systèmes">
+<meta property="og:title" content="Scalera Systèmes — Développeur web & mobile, automatisation et IA">
+<meta property="og:description" content="Applications web et mobiles, automatisation des processus métier et agents IA. Réalisations, parcours et contact.">
+<meta property="og:url" content="https://scalera-sytemes-temporaire.vercel.app/">
+<meta property="og:image" content="https://scalera-sytemes-temporaire.vercel.app/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/michroma-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
@@ -14,91 +27,205 @@
 </head>
 <body>
 
-<canvas id="neural-bg"></canvas>
-<div class="grille"></div>
-<div class="vignette"></div>
-<div class="logo-halo"></div>
+<a class="evitement" href="#contenu">Aller au contenu</a>
+
+<canvas id="neural-bg" aria-hidden="true"></canvas>
+<div class="grille" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="logo-halo" aria-hidden="true"></div>
 
 <div class="page">
-  <header>
-    <div class="marque">Scalera <b>Systèmes</b></div>
-    <div class="badge"><span class="pulse"></span>Site web en construction</div>
+  <header class="entete">
+    <a class="marque" href="#haut" aria-label="Scalera Systèmes — retour en haut">Scalera <b>Systèmes</b></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#parcours">Parcours</a>
+      <a href="#portfolio">Projets</a>
+      <a href="#competences">Compétences</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main class="hero">
-    <canvas id="holo" aria-label="Hologramme du logo Scalera Systèmes — faites-le pivoter, double-cliquez pour le désassembler"></canvas>
-    <div class="socle"></div>
+  <main id="contenu">
+    <section class="hero" id="haut">
+      <canvas id="holo" role="img" aria-label="Logo Scalera Systèmes en particules 3D, manipulable à la souris ou au doigt"></canvas>
+      <div class="socle" aria-hidden="true"></div>
 
-    <div class="indice">
-      <kbd>Glisser</kbd> pivoter
-      <span style="opacity:.4">·</span>
-      <kbd>Double-clic</kbd> désassembler
-    </div>
+      <p class="indice" aria-hidden="true">
+        <kbd>Glisser</kbd> pivoter
+        <span class="indice-sep">·</span>
+        <kbd><span class="si-souris">Double-clic</span><span class="si-tactile">Double-tap</span></kbd> désassembler
+      </p>
 
-    <h1 class="titre">Scalera <span class="accent">Systèmes</span></h1>
-    <div class="sous">
-      <span>Développer</span><i>&#9679;</i><span>Optimiser</span><i>&#9679;</i><span>Automatiser</span>
-    </div>
+      <h1 class="titre">Scalera <span class="accent">Systèmes</span></h1>
+      <p class="role">Développeur web &amp; mobile — Full Stack · Automatisation · Agents IA</p>
+      <p class="sous">
+        <span>Développer</span><i aria-hidden="true">&#9679;</i><span>Optimiser</span><i aria-hidden="true">&#9679;</i><span>Automatiser</span>
+      </p>
 
-    <div class="console" id="console" aria-hidden="true"></div>
-  </main>
+      <div class="console" id="console" aria-hidden="true"></div>
 
-  <section class="piliers" id="piliers">
-    <article class="pilier">
-      <div class="glyphe">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="hero-actions">
+        <a class="bouton bouton-plein" href="#portfolio">Voir les projets</a>
+        <a class="bouton" href="assets/cv/cv-developpeur-web-mobile.pdf" download>Télécharger le CV</a>
       </div>
-      <h3>Développer</h3>
-      <p>Concevoir des outils et des applications sur mesure, du prototype au produit fiable, avec un code clair et maintenable.</p>
-    </article>
-    <article class="pilier">
-      <div class="glyphe">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-      </div>
-      <h3>Optimiser</h3>
-      <p>Analyser les processus existants pour éliminer les frictions, accélérer l'exécution et améliorer la performance mesurable.</p>
-    </article>
-    <article class="pilier">
-      <div class="glyphe">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </div>
-      <h3>Automatiser</h3>
-      <p>Connecter les systèmes entre eux et déléguer les tâches répétitives à des flux automatisés qui travaillent en continu.</p>
-    </article>
-  </section>
+    </section>
 
-  <section class="section" id="portfolio">
-    <div class="etiquette">Portfolio</div>
-    <h2 class="section-titre">Réalisations</h2>
-    <div class="projets">
-      <article class="projet">
-        <a class="projet-visuel" href="https://www.lescaledelarcher.fr" target="_blank" rel="noopener">
-          <img src="assets/img/escale-de-larcher.webp" alt="Aperçu du site L'Escale de Larcher" width="800" height="500" loading="lazy" decoding="async">
-        </a>
-        <div class="projet-corps">
-          <div class="projet-tags"><span>Site vitrine</span><span>Réservation</span><span>Multilingue</span></div>
-          <h3>L'Escale de Larcher</h3>
-          <p>Bivouacs, gîtes en pierre et tables au cœur du Périgord Noir. Site vitrine complet : présentation du domaine, hébergements, pizzeria, galerie photo et parcours de réservation.</p>
-          <a class="projet-lien" href="https://www.lescaledelarcher.fr" target="_blank" rel="noopener">Voir le site ↗</a>
+    <section class="section-piliers" aria-labelledby="titre-piliers">
+      <h2 class="sr-only" id="titre-piliers">Ce que je fais</h2>
+      <div class="piliers">
+        <article class="pilier">
+          <div class="glyphe" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>Développer</h3>
+          <p>Applications web et mobiles avec React, Next.js, React Native et Expo. API, données et authentification avec Supabase ; tests, contrôle des accès et déploiement.</p>
+        </article>
+        <article class="pilier">
+          <div class="glyphe" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <h3>Optimiser</h3>
+          <p>Analyser les processus métier, cadrer les besoins et concevoir des outils internes adaptés aux équipes, avec le regard d'un ancien du bureau d'études et de la qualité.</p>
+        </article>
+        <article class="pilier">
+          <div class="glyphe" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>Automatiser</h3>
+          <p>Workflows Make et n8n, agents métier connectés aux API OpenAI et Anthropic, développement assisté par Claude Code et environnements conteneurisés avec Docker.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="parcours" aria-labelledby="titre-parcours">
+      <p class="etiquette">Parcours</p>
+      <h2 class="section-titre" id="titre-parcours">De l'atelier au code</h2>
+      <p class="chapo">Je conçois des applications web et mobiles, du besoin utilisateur au déploiement&nbsp;: interfaces, données, tests et développement assisté par IA. Mon expérience en bureau d'études et en qualité industrielle nourrit ma compréhension des processus métier et de leur automatisation.</p>
+
+      <ul class="chiffres" aria-label="En bref">
+        <li><b>2</b><span>sites web conçus, développés et publiés</span></li>
+        <li><b>2</b><span>applications mobiles réalisées</span></li>
+        <li><b>2021</b><span>entrée en industrie&nbsp;: qualité, méthodes, chiffrage</span></li>
+      </ul>
+
+      <ol class="frise">
+        <li class="etape">
+          <p class="etape-date">En cours</p>
+          <h3>Product Builder IA</h3>
+          <p class="etape-lieu">École Cube</p>
+          <p>Conception de produits numériques assistée par IA&nbsp;: cadrage, prototypage, développement full stack et déploiement.</p>
+        </li>
+        <li class="etape">
+          <p class="etape-date">2023 — aujourd'hui</p>
+          <h3>Bureau d'études, chiffrage, méthodes et qualité</h3>
+          <p class="etape-lieu">ACIS · Textile technique et défense</p>
+          <p>Analyse des besoins clients, chiffrage et structuration des données. Optimisation des méthodes et interface entre production, qualité et fournisseurs.</p>
+        </li>
+        <li class="etape">
+          <p class="etape-date">2021 — 2022</p>
+          <h3>Assistant qualité</h3>
+          <p class="etape-lieu">Conserves France · Agroalimentaire</p>
+          <p>Contrôles, traçabilité, coordination des contrôleurs et gestion de laboratoires. Analyse des écarts et amélioration du suivi.</p>
+        </li>
+        <li class="etape">
+          <p class="etape-date">2007 — 2021</p>
+          <h3>Parcours terrain</h3>
+          <p class="etape-lieu">Armée de Terre · Sécurité · Agriculture · International</p>
+          <p>Rigueur, travail en équipe et adaptation à des environnements exigeants.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="portfolio" aria-labelledby="titre-portfolio">
+      <p class="etiquette">Portfolio</p>
+      <h2 class="section-titre" id="titre-portfolio">Réalisations</h2>
+      <div class="projets">
+        <article class="projet">
+          <a class="projet-visuel" href="https://www.lescaledelarcher.fr" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/escale-de-larcher.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          </a>
+          <div class="projet-corps">
+            <div class="projet-tags"><span>Site vitrine</span><span>Réservation</span><span>Multilingue</span></div>
+            <h3>L'Escale de Larcher</h3>
+            <p>Bivouacs, gîtes en pierre et tables au cœur du Périgord Noir. Site vitrine complet&nbsp;: présentation du domaine, hébergements, pizzeria, galerie photo et parcours de réservation.</p>
+            <a class="projet-lien" href="https://www.lescaledelarcher.fr" target="_blank" rel="noopener">Voir le site<span class="sr-only"> L'Escale de Larcher (nouvel onglet)</span> ↗</a>
+          </div>
+        </article>
+
+        <article class="projet">
+          <div class="projet-visuel projet-visuel-texte" aria-hidden="true">
+            <span class="pv-nom">Cosydo</span>
+            <span class="pv-stack">React Native · Expo · Supabase</span>
+          </div>
+          <div class="projet-corps">
+            <div class="projet-tags"><span>Application mobile</span><span>React Native</span><span>Supabase</span></div>
+            <h3>Cosydo</h3>
+            <p>Application d'organisation familiale développée avec React Native, Expo et Supabase, en développement assisté par Claude Code.</p>
+          </div>
+        </article>
+
+        <article class="projet">
+          <div class="projet-visuel projet-visuel-code" aria-hidden="true">
+            <pre>page .......... 155 Ko
+dépendances ... 0
+cookies ....... 0
+traceurs ...... 0</pre>
+          </div>
+          <div class="projet-corps">
+            <div class="projet-tags"><span>Site statique</span><span>Canvas 3D</span><span>RGPD</span></div>
+            <h3>Ce portfolio</h3>
+            <p>HTML, CSS et JavaScript sans dépendance&nbsp;: fond neuronal et logo en particules 3D dessinés en Canvas 2D, animations mises en pause hors écran, polices auto-hébergées, aucun cookie. Déployé par Vercel depuis GitHub.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="competences" aria-labelledby="titre-competences">
+      <p class="etiquette">Compétences</p>
+      <h2 class="section-titre" id="titre-competences">Stack &amp; outils</h2>
+      <div class="stack">
+        <div class="stack-bloc">
+          <h3>Web et mobile</h3>
+          <ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Next.js</li><li>Tailwind CSS</li><li>React Native</li><li>Expo</li></ul>
         </div>
-      </article>
-    </div>
-    <div class="projets-note">D'autres réalisations arrivent bientôt</div>
-  </section>
+        <div class="stack-bloc">
+          <h3>Données et API</h3>
+          <ul><li>Supabase</li><li>PostgreSQL</li><li>SQL</li><li>API REST</li></ul>
+        </div>
+        <div class="stack-bloc">
+          <h3>Automatisation et IA</h3>
+          <ul><li>Claude Code</li><li>Make</li><li>n8n</li><li>API OpenAI</li><li>API Anthropic</li></ul>
+        </div>
+        <div class="stack-bloc">
+          <h3>Outils</h3>
+          <ul><li>Git</li><li>GitHub</li><li>VS Code</li><li>Docker</li><li>Vercel</li><li>Airtable</li><li>Notion</li><li>Excel</li></ul>
+        </div>
+        <div class="stack-bloc">
+          <h3>Langues</h3>
+          <ul class="langues"><li>Français <em>natif</em></li><li>Espagnol <em>intermédiaire professionnel</em></li><li>Anglais <em>notions opérationnelles</em></li></ul>
+        </div>
+      </div>
+    </section>
 
-  <section class="section contact" id="contact">
-    <div class="etiquette">Contact</div>
-    <h2 class="section-titre">Travaillons ensemble</h2>
-    <p class="contact-texte">Une opportunité, un projet ou une question&nbsp;? Écrivez-moi, je réponds sous 48&nbsp;h.</p>
-    <div class="contact-actions">
-      <a class="contact-mail" href="mailto:daemonshift@gmail.com?subject=Contact%20depuis%20le%20portfolio%20Scalera">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg>
-        <span>daemonshift@gmail.com</span>
-      </a>
-      <button class="contact-copier" type="button" data-copier="daemonshift@gmail.com" hidden>Copier l'adresse</button>
-    </div>
-    <p class="contact-statut" role="status" aria-live="polite"></p>
-  </section>
+    <section class="section contact" id="contact" aria-labelledby="titre-contact">
+      <p class="etiquette">Contact</p>
+      <h2 class="section-titre" id="titre-contact">Travaillons ensemble</h2>
+      <p class="contact-texte">Une opportunité, un projet ou une question&nbsp;? Écrivez-moi, je réponds sous 48&nbsp;h.</p>
+      <div class="contact-actions">
+        <a class="contact-mail" href="mailto:daemonshift@gmail.com?subject=Contact%20depuis%20le%20portfolio%20Scalera">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg>
+          <span>daemonshift@gmail.com</span>
+        </a>
+        <button class="contact-copier" type="button" data-copier="daemonshift@gmail.com" hidden>Copier l'adresse</button>
+      </div>
+      <p class="contact-statut" role="status" aria-live="polite"></p>
+      <ul class="contact-liens">
+        <li><a href="https://www.linkedin.com/in/hugo-f-5842b1191" target="_blank" rel="noopener me">LinkedIn<span class="sr-only"> (nouvel onglet)</span> ↗</a></li>
+        <li><a href="https://github.com/daemonshift" target="_blank" rel="noopener me">GitHub<span class="sr-only"> (nouvel onglet)</span> ↗</a></li>
+        <li><a href="assets/cv/cv-developpeur-web-mobile.pdf" download>CV (PDF)</a></li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
     © 2026 <b>Scalera Systèmes</b> — Tous droits réservés

@@ -2,13 +2,14 @@
 (() => {
   const el = document.getElementById('console');
   const lignes = [
-    ['info','> scalera.systemes — initialisation'],
-    ['ok','✓ identite.visuelle ............ chargée'],
-    ['ok','✓ reseau.neuronal .............. actif'],
-    ['ok','✓ hologramme.3d ................ stable'],
-    ['att','⧗ portfolio.modules ............ en formation'],
-    ['curseur','> en attente des premiers projets ']
+    ['info','> scalera.systemes — profil chargé'],
+    ['ok','✓ web.mobile ....... react · next · expo'],
+    ['ok','✓ donnees.api ...... supabase · sql'],
+    ['ok','✓ automatisation ... make · n8n · agents'],
+    ['ok','✓ terrain .......... industrie · qualité'],
+    ['curseur','> ouvert aux opportunités ']
   ];
+  if (!el) return;
   lignes.forEach((l,i)=>{
     const d=document.createElement('div');
     d.className='ln '+l[0];
