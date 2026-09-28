@@ -11,7 +11,7 @@ const racine = resolve(__dirname, '..');
 const src = f => pathToFileURL(resolve(racine, 'scripts', f)).href;
 const out = f => resolve(racine, f);
 
-const PORTFOLIO_URL = process.env.PORTFOLIO_URL || 'https://scalera-sytemes-temporaire.vercel.app';
+const PORTFOLIO_URL = process.env.PORTFOLIO_URL || 'https://scalera-systemes.fr';
 
 async function main() {
   await mkdir(out('assets/cv'), { recursive: true });

@@ -32,7 +32,7 @@ Sources : `scripts/cv.html`, `scripts/og.html`, `assets/img/scalera-emblem.png`.
 
 ```bash
 npm i -g playwright && npx playwright install chromium   # une seule fois
-NODE_PATH=$(npm root -g) PORTFOLIO_URL=https://mon-domaine.fr node scripts/build-assets.cjs
+NODE_PATH=$(npm root -g) node scripts/build-assets.cjs
 ```
 
 Le script échoue volontairement si le CV dépasse une page A4. Le PDF produit ne contient aucune métadonnée d'auteur.
@@ -48,7 +48,7 @@ Le script échoue volontairement si le CV dépasse une page A4. Le PDF produit n
 - Code sur GitHub, déployé par **Vercel** (site statique, aucune configuration de build).
 - Domaine géré chez **OVH**, pointé vers Vercel.
 - Chaque push sur une branche crée une preview Vercel ; `main` = production.
-- À la mise en place du domaine : mettre à jour `og:url` / `og:image` dans `index.html` et régénérer le CV avec `PORTFOLIO_URL`.
+- Domaine de production : https://scalera-systemes.fr (utilisé par `og:url`, `og:image` et le lien du CV ; surcharge possible via `PORTFOLIO_URL`).
 
 ## Ajouter une réalisation
 
