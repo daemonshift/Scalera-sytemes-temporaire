@@ -271,6 +271,59 @@ footer{
   border-top:1px solid rgba(79,124,224,.10);
 }
 footer b{color:var(--acier);font-weight:500}
+footer a{color:var(--acier);text-decoration:none;border-bottom:1px solid var(--trait)}
+footer a:hover,footer a:focus-visible{color:var(--blanc);border-color:var(--bleu-vif)}
+.footer-sep{margin:0 10px;opacity:.5}
+
+/* ── Contact ─────────────────────────────────────── */
+.contact{text-align:center}
+.contact-texte{
+  margin:16px auto 0;max-width:460px;
+  font-size:14px;line-height:1.75;color:var(--acier);font-weight:300;
+}
+.contact-actions{
+  margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;
+  justify-content:center;align-items:center;
+}
+.contact-mail,.contact-copier{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:inherit;font-size:14px;letter-spacing:.04em;
+  border-radius:100px;padding:13px 22px;cursor:pointer;
+  transition:border-color .3s,background .3s,color .3s;
+}
+.contact-mail{
+  color:var(--blanc);text-decoration:none;
+  border:1px solid rgba(74,144,255,.55);
+  background:rgba(10,71,224,.18);
+  overflow-wrap:anywhere;
+}
+.contact-mail:hover,.contact-mail:focus-visible{background:rgba(10,71,224,.32);border-color:var(--bleu-vif)}
+.contact-copier{
+  color:var(--acier);background:rgba(7,13,28,.6);
+  border:1px solid var(--trait);
+}
+.contact-copier[hidden]{display:none}
+.contact-copier:hover,.contact-copier:focus-visible{color:var(--blanc);border-color:rgba(74,144,255,.45)}
+.contact-mail:focus-visible,.contact-copier:focus-visible,footer a:focus-visible{outline:2px solid var(--bleu-vif);outline-offset:3px}
+.contact-statut{margin-top:14px;min-height:1.5em;font-size:12.5px;color:#3ddc91}
+
+/* ── Page mentions légales ───────────────────────── */
+.legal{max-width:720px;margin:0 auto;padding:clamp(40px,8vh,90px) 24px 60px}
+.legal-retour{
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bleu-vif);text-decoration:none;
+}
+.legal-retour:hover,.legal-retour:focus-visible{color:var(--blanc)}
+.legal h1{
+  margin-top:28px;font-family:'Michroma',sans-serif;font-weight:400;
+  font-size:clamp(18px,3.4vw,26px);letter-spacing:.14em;text-transform:uppercase;
+}
+.legal h2{margin-top:40px;font-size:16px;font-weight:500;color:var(--blanc)}
+.legal p,.legal li{margin-top:12px;font-size:14px;line-height:1.75;color:var(--acier);font-weight:300}
+.legal ul{padding-left:20px}
+.legal a{color:var(--bleu-vif)}
+.legal a:hover,.legal a:focus-visible{color:var(--blanc)}
+.legal .maj{margin-top:48px;font-size:12px;color:var(--acier);opacity:.8}
 
 @media (max-width:820px){.piliers{grid-template-columns:1fr;max-width:480px}}
 @media (max-width:560px){

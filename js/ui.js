@@ -18,6 +18,46 @@
   });
 })();
 
+/* ════════════ Contact : copie de l'adresse ════════════ */
+(() => {
+  const btn = document.querySelector('[data-copier]');
+  const statut = document.querySelector('.contact-statut');
+  if (!btn || !statut) return;
+  const adresse = btn.dataset.copier;
+  let minuteur;
+
+  const annoncer = msg => {
+    statut.textContent = msg;
+    clearTimeout(minuteur);
+    minuteur = setTimeout(() => { statut.textContent = ''; }, 4000);
+  };
+
+  // Secours sans Clipboard API (http non sécurisé, navigateur ancien) : on sélectionne le texte
+  const selectionner = () => {
+    const cible = document.querySelector('.contact-mail span');
+    if (!cible) return false;
+    const r = document.createRange();
+    r.selectNodeContents(cible);
+    const sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+    return true;
+  };
+
+  btn.hidden = false; // bouton affiché seulement si le JS tourne
+  btn.addEventListener('click', async () => {
+    try {
+      if (!navigator.clipboard || !isSecureContext) throw new Error('Clipboard API indisponible');
+      await navigator.clipboard.writeText(adresse);
+      annoncer('Adresse copiée ✓');
+    } catch (err) {
+      annoncer(selectionner()
+        ? 'Adresse sélectionnée : Ctrl+C (⌘+C) pour la copier'
+        : 'Copie impossible : ' + adresse);
+    }
+  });
+})();
+
 /* ════════════ Révélation au défilement + halo sur cartes ════════════ */
 (() => {
   const obs = new IntersectionObserver(es=>{
