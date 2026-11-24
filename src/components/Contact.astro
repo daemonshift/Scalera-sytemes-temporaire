@@ -1,0 +1,251 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/hugo-failly.png';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="dark">
+  <div class="wrap inner">
+    <h2 class="title">
+      <span class="first">
+        <Image src={portrait} alt="" width={92} height={92} widths={[92, 184]} sizes="92px" class="avatar" />
+        Un process vous
+      </span>
+      fait perdre du temps ? <span class="sf nowrap">Parlons-en.</span>
+    </h2>
+
+    <div class="body">
+      <form class="form" action={`mailto:${site.email}`} method="post" enctype="text/plain" data-contact>
+        <label>
+          Nom
+          <input class="fld" type="text" name="name" placeholder="Votre nom" autocomplete="name" required />
+        </label>
+        <label>
+          Entreprise
+          <input class="fld" type="text" name="company" placeholder="Votre entreprise" autocomplete="organization" />
+        </label>
+        <label class="full">
+          E-mail
+          <input class="fld" type="email" name="email" placeholder="vous@entreprise.fr" autocomplete="email" required />
+        </label>
+        <label class="full">
+          Votre besoin
+          <textarea class="fld" name="message" rows="3" placeholder="Ce qui vous fait perdre du temps aujourd’hui…" required
+          ></textarea>
+        </label>
+        <div class="full submit">
+          <button type="submit" class="btn btn-round send">Envoyer</button>
+          <p class="note">
+            Le bouton ouvre votre messagerie avec le message prérempli. Vos informations servent uniquement à vous
+            répondre.
+          </p>
+        </div>
+      </form>
+
+      <div class="aside">
+        <div>
+          <p class="label">Écrire directement</p>
+          <a href={`mailto:${site.email}`} class="ul mail">{site.email}</a>
+        </div>
+        <div>
+          <p class="label">Basé à</p>
+          <p class="value">{site.location}</p>
+        </div>
+        <div>
+          <p class="label">Réseaux</p>
+          <div class="socials">
+            <a class="ul" href={site.linkedin} target="_blank" rel="noopener me">
+              LinkedIn<span class="sr-only"> (nouvel onglet)</span>
+            </a>
+            <a class="ul" href={site.github} target="_blank" rel="noopener me">
+              GitHub<span class="sr-only"> (nouvel onglet)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <span>© {year} {site.name} · SIRET {site.siret}</span>
+      <div class="bottom-links">
+        <a class="ul" href="/mentions-legales">Mentions légales</a>
+        <a class="ul" href="/mentions-legales#donnees">Confidentialité</a>
+        <span>Heure locale <time data-clock>--:--</time></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .inner {
+    padding-top: clamp(96px, 11vw, 150px);
+    padding-bottom: 40px;
+  }
+  .title {
+    margin-bottom: 96px;
+    font-size: clamp(48px, 7vw, 112px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+  .first {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-bottom: 8px;
+  }
+  .avatar {
+    width: clamp(64px, 7vw, 92px);
+    height: clamp(64px, 7vw, 92px);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px;
+    border-top: 1px solid var(--line-dark);
+    padding-top: 64px;
+  }
+  .form {
+    flex: 999 1 560px;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 36px 40px;
+  }
+  label,
+  .label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-dark);
+  }
+  .full {
+    grid-column: 1 / -1;
+  }
+  .fld {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #3a3a37;
+    border-radius: 0;
+    color: var(--paper);
+    font: inherit;
+    font-size: 18px;
+    letter-spacing: normal;
+    text-transform: none;
+    padding: 14px 0;
+    outline: none;
+    resize: vertical;
+  }
+  .fld:focus {
+    border-bottom-color: var(--paper);
+  }
+  .fld::placeholder {
+    color: #8a887f;
+  }
+  .submit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+  }
+  .send {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+    font-size: 17px;
+  }
+  .send:hover {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border-color: var(--paper) !important;
+  }
+  .note {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted-dark);
+    max-width: 300px;
+  }
+
+  .aside {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .label {
+    margin-bottom: 12px;
+  }
+  .mail {
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+  }
+  .value {
+    font-size: 18px;
+  }
+  .socials {
+    display: flex;
+    gap: 24px;
+    font-size: 18px;
+  }
+
+  .bottom {
+    margin-top: clamp(80px, 10vw, 140px);
+    padding-top: 28px;
+    border-top: 1px solid var(--line-dark);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px 32px;
+    font-size: 14px;
+    color: var(--muted-dark);
+  }
+  .bottom-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+</style>
+
+<script>
+  import { site } from '../data/site';
+
+  // Formulaire sans serveur : compose un e-mail prérempli dans la messagerie du visiteur.
+  const form = document.querySelector<HTMLFormElement>('[data-contact]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) ?? '').trim();
+    const subject = `Projet — ${get('name')}${get('company') ? ` (${get('company')})` : ''}`;
+    const body = `${get('message')}\n\n— ${get('name')}${get('company') ? `, ${get('company')}` : ''}\n${get('email')}`;
+    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+
+  // Heure locale (Paris), rafraîchie toutes les 30 s.
+  const clock = document.querySelector<HTMLTimeElement>('[data-clock]');
+  if (clock) {
+    const tick = () => {
+      clock.textContent = new Date().toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Paris',
+      });
+    };
+    tick();
+    setInterval(tick, 30_000);
+  }
+</script>

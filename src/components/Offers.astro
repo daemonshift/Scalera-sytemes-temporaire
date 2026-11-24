@@ -1,0 +1,119 @@
+---
+import { offers } from '../data/site';
+---
+
+<section id="offres" class="band" aria-labelledby="offres-title">
+  <div class="wrap inner">
+    <div class="section-head">
+      <h2 id="offres-title" class="h2">Trois façons de<br /><span class="sf">travailler ensemble.</span></h2>
+      <p class="eyebrow">(02) Offres</p>
+    </div>
+    <div class="grid">
+      {
+        offers.map((o) => (
+          <article class:list={['card', { dark: o.dark }]}>
+            <p class="eyebrow">{o.tag}</p>
+            <h3>{o.title}</h3>
+            <p class="text">{o.text}</p>
+            <ul class="points">
+              {o.points.map((pt) => <li>— {pt}</li>)}
+            </ul>
+            <div class="foot">
+              <span class="price">{o.price}</span>
+              <a href="#contact" class="btn more">
+                En parler<span class="sr-only"> de l’offre « {o.title} »</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    background: var(--paper-2);
+  }
+  .inner {
+    padding-top: clamp(96px, 11vw, 140px);
+    padding-bottom: clamp(96px, 11vw, 150px);
+  }
+  .section-head {
+    margin-bottom: 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    transition: transform 0.45s var(--ease);
+  }
+  .card:hover {
+    transform: translateY(-6px);
+  }
+  .card.dark {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  h3 {
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .dark .text {
+    color: var(--soft-dark);
+  }
+  .points {
+    list-style: none;
+    margin: 0;
+    padding: 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+    border-top: 1px solid var(--line);
+  }
+  .dark .points {
+    border-top-color: var(--line-dark);
+  }
+  .foot {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .price {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .more {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+  .dark .more {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+  @media (max-width: 760px) {
+    .card {
+      padding: 32px 24px;
+    }
+  }
+</style>

@@ -1,0 +1,250 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/hugo-failly.png';
+import { site, nav, marquee } from '../data/site';
+---
+
+<header id="top" class="dark">
+  <div class="banner">
+    <span class="dot" style="width:7px;height:7px"></span>
+    <span>{site.availability}</span>
+  </div>
+
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a href="#top" class="brand">{site.name} <span>by {site.owner}</span></a>
+    <div class="links">
+      {nav.map((l) => <a class="ul" href={l.href}>{l.label}</a>)}
+      <a href="#contact" class="btn cta-sm">Réserver un appel</a>
+    </div>
+  </nav>
+
+  <div class="wrap hero">
+    <div class="hero-text">
+      <p class="eyebrow">{site.role} · Applications, automatisation, IA</p>
+      <h1>Je construis les outils qui font gagner <span class="sf">du temps</span> à vos équipes.</h1>
+      <p class="lead">
+        Applications web et mobiles, automatisations et IA, pensées à partir de votre façon de travailler — et
+        livrées avec une exigence de précision.
+      </p>
+      <div class="actions">
+        <a href="#contact" class="btn cta">
+          Réserver un appel découverte
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <a href="#realisations" class="ul secondary">Voir les réalisations</a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <Image
+        src={portrait}
+        alt={`${site.owner}, fondateur de ${site.name}`}
+        widths={[450, 900]}
+        sizes="(max-width: 760px) 100vw, 440px"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption>
+        <strong>{site.owner}</strong>
+        <span>Fondateur · {site.location}</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="mq">
+      {
+        [0, 1].map(() =>
+          marquee.map((word, i) => (
+            <>
+              <span class:list={['mq-word', { ol: i % 2 === 1 }]}>{word}</span>
+              <span class="dot" style="width:18px;height:18px" />
+            </>
+          )),
+        )
+      }
+    </div>
+  </div>
+</header>
+
+<style>
+  .banner {
+    background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    text-align: center;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-block: 28px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .brand span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted-dark);
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+    font-size: 16px;
+  }
+  .cta-sm {
+    padding: 12px 22px;
+    font-weight: 500;
+  }
+
+  .hero {
+    padding-top: 56px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 56px;
+  }
+  .hero-text {
+    flex: 999 1 560px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .hero-text .eyebrow {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: clamp(46px, 6.2vw, 94px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .lead {
+    max-width: 560px;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--soft-dark);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+  }
+  .cta {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+    padding: 20px 32px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .secondary {
+    font-size: 17px;
+    padding-bottom: 4px;
+  }
+
+  .portrait {
+    flex: 1 1 340px;
+    max-width: 440px;
+    position: relative;
+  }
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+    object-position: center 18%;
+  }
+  figcaption {
+    position: absolute;
+    left: -24px;
+    bottom: 28px;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 16px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  figcaption strong {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  figcaption span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .marquee {
+    border-top: 1px solid var(--line-dark);
+    padding: 34px 0 40px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .mq {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    font-size: clamp(64px, 9vw, 136px);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    animation: mq 38s linear infinite;
+  }
+  .mq-word {
+    padding: 0 40px;
+  }
+  .ol {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--paper);
+  }
+  @keyframes mq {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .nav .ul {
+      display: none;
+    }
+    .hero {
+      padding-top: 24px;
+      padding-bottom: 72px;
+      gap: 48px;
+    }
+    .portrait {
+      max-width: none;
+    }
+    .portrait img {
+      height: auto;
+      aspect-ratio: 4 / 5;
+    }
+    figcaption {
+      left: 16px;
+      bottom: 16px;
+    }
+    .marquee {
+      padding: 24px 0 28px;
+    }
+  }
+</style>

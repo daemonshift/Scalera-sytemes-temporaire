@@ -1,0 +1,62 @@
+---
+import { steps } from '../data/site';
+---
+
+<section id="methode" class="dark" aria-labelledby="methode-title">
+  <div class="wrap inner">
+    <div class="section-head">
+      <h2 id="methode-title" class="h2">Une méthode<br /><span class="sf">sans surprise.</span></h2>
+      <p class="eyebrow">(04) Méthode</p>
+    </div>
+    <ol class="grid">
+      {
+        steps.map((s, i) => (
+          <li>
+            <span class="sf num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .inner {
+    padding-top: clamp(96px, 11vw, 140px);
+    padding-bottom: clamp(96px, 11vw, 150px);
+  }
+  .section-head {
+    margin-bottom: 72px;
+  }
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: 40px 32px;
+  }
+  li {
+    border-top: 1px solid var(--paper);
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .num {
+    font-size: 64px;
+    line-height: 1;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted-dark);
+  }
+</style>
