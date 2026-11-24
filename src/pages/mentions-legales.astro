@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title={`Mentions légales — ${site.name}`} description={`Mentions légales et politique de confidentialité du site ${site.name}.`} noindex>
+  <header class="dark top">
+    <div class="wrap bar">
+      <a href="/" class="brand">{site.name}</a>
+      <a href="/" class="ul">← Retour au site</a>
+    </div>
+  </header>
+
+  <main id="contenu" class="wrap legal">
+    <h1>Mentions <span class="sf">légales.</span></h1>
+
+    <section>
+      <h2>Éditeur</h2>
+      <p>
+        {site.name} — {site.owner}, entrepreneur individuel<br />
+        SIRET : {site.siret}<br />
+        Adresse : [À COMPLÉTER]<br />
+        Contact : <a class="ul" href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p>Directeur de la publication : {site.owner}.</p>
+    </section>
+
+    <section>
+      <h2>Hébergement</h2>
+      <p>Vercel Inc.<br />440 N Barranca Ave #4133<br />Covina, CA 91723<br />États-Unis</p>
+    </section>
+
+    <section id="donnees">
+      <h2>Données personnelles</h2>
+      <ul>
+        <li>Ce site ne dépose aucun cookie et n’utilise aucun outil de mesure d’audience ni aucun traceur publicitaire.</li>
+        <li>Les polices de caractères sont servies directement par le site : aucune donnée n’est transmise à un service tiers lors de la navigation.</li>
+        <li>Le formulaire de contact n’envoie rien à un serveur : il ouvre votre messagerie avec un message prérempli, que vous choisissez d’envoyer ou non.</li>
+        <li>Comme tout hébergeur, Vercel enregistre des journaux techniques (adresse IP, date, page demandée) nécessaires à la sécurité et au fonctionnement du service.</li>
+        <li>Si vous écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre ; ils ne sont ni cédés ni utilisés à d’autres fins.</li>
+      </ul>
+      <p>
+        Conformément au RGPD, vous pouvez demander l’accès, la rectification ou l’effacement de vos données en écrivant à
+        l’adresse ci-dessus. Vous pouvez également adresser une réclamation à la
+        <a class="ul" href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes et visuels de ce site sont la propriété de leur auteur, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>
+      <p>
+        Polices Inter Tight et Instrument Serif : licence
+        <a class="ul" href="https://openfontlicense.org/" target="_blank" rel="noopener">SIL Open Font License 1.1</a>.
+      </p>
+    </section>
+
+    <p class="maj">Dernière mise à jour : novembre 2026</p>
+  </main>
+</Base>
+
+<style>
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-block: 28px;
+  }
+  .brand {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .legal {
+    max-width: 860px;
+    padding-top: 96px;
+    padding-bottom: 120px;
+  }
+  h1 {
+    font-size: clamp(44px, 6vw, 84px);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 64px;
+  }
+  section {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+  }
+  h2 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  p,
+  li {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  p + p {
+    margin-top: 12px;
+  }
+  ul {
+    margin: 0 0 12px;
+    padding-left: 20px;
+  }
+  .maj {
+    margin-top: 32px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+</style>

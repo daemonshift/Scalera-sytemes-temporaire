@@ -1,0 +1,70 @@
+---
+import { problems } from '../data/site';
+---
+
+<section id="services" class="wrap problems" aria-labelledby="services-title">
+  <div class="section-head">
+    <h2 id="services-title" class="h2">Vous perdez du temps.<br /><span class="sf">Voici où.</span></h2>
+    <p class="eyebrow">(01) Ce que je règle</p>
+  </div>
+  <ol class="list">
+    {
+      problems.map((p, i) => (
+        <li class="item">
+          <span class="num">{String(i + 1).padStart(2, '0')}</span>
+          <p class="pain">{p.pain}</p>
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M4 12h16M14 6l6 6-6 6" />
+          </svg>
+          <p class="fix">{p.fix}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .problems {
+    padding-bottom: clamp(96px, 12vw, 160px);
+  }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .num {
+    flex: 0 0 48px;
+    font-size: 14px;
+  }
+  .pain {
+    flex: 999 1 420px;
+    min-width: 0;
+    font-size: clamp(22px, 2.2vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .fix {
+    flex: 1 1 300px;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  @media (max-width: 760px) {
+    .item {
+      padding: 28px 0;
+    }
+    .item svg {
+      display: none;
+    }
+  }
+</style>

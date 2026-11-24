@@ -1,0 +1,90 @@
+---
+import { faq } from '../data/site';
+---
+
+<section id="faq" class="wrap faq" aria-labelledby="faq-title">
+  <div class="intro">
+    <p class="eyebrow">(06) Questions</p>
+    <h2 id="faq-title">Avant de <span class="sf">se lancer.</span></h2>
+  </div>
+  <div class="list">
+    {
+      faq.map((f, i) => (
+        <details name="faq" open={i === 0}>
+          <summary>
+            <span>{f.q}</span>
+            <span class="sign" aria-hidden="true" />
+          </summary>
+          <p>{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding-top: 40px;
+    padding-bottom: clamp(96px, 12vw, 160px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px 64px;
+  }
+  .intro {
+    flex: 1 1 300px;
+  }
+  .intro .eyebrow {
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+  .list {
+    flex: 999 1 600px;
+    min-width: 0;
+    border-top: 1px solid var(--ink);
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .sign::before {
+    content: '+';
+    font-size: 26px;
+    font-weight: 300;
+  }
+  details[open] .sign::before {
+    content: '−';
+  }
+  details p {
+    padding: 0 64px 28px 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  @media (max-width: 760px) {
+    summary {
+      font-size: 19px;
+      padding: 22px 0;
+    }
+    details p {
+      padding-right: 0;
+    }
+  }
+</style>
